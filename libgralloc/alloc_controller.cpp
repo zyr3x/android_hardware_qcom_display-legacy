@@ -30,7 +30,8 @@
 #include <cutils/log.h>
 #include <utils/RefBase.h>
 #include <fcntl.h>
-#include "gralloc_priv.h"
+#include <dlfcn.h>
+#include <gralloc_priv.h>
 #include "alloc_controller.h"
 #include "memalloc.h"
 #include "ionalloc.h"
