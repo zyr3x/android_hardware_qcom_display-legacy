@@ -241,12 +241,6 @@ int MDPComp::prepare(hwc_context_t *ctx, hwc_layer_1_t *layer,
             dst_h = dst.bottom - dst.top;
         }
 
-        if( (dst_w > hw_w)|| (dst_h > hw_h)) {
-            ALOGD_IF(isDebug(),"%s: Dest rect exceeds FB", __FUNCTION__);
-            print_info(layer);
-            dst_w = hw_w;
-            dst_h = hw_h;
-        }
 
         // Determine pipe to set based on pipe index
         ovutils::eDest dest = ovutils::OV_PIPE_ALL;
