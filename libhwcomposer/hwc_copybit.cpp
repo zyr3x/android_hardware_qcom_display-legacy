@@ -356,8 +356,12 @@ int  CopyBit::drawLayerUsingCopybit(hwc_context_t *dev, hwc_layer_1_t *layer,
        }
        ALOGE("%s:%d::tmp_w = %d,tmp_h = %d",__FUNCTION__,__LINE__,tmp_w,tmp_h);
 
-       int usage = GRALLOC_USAGE_PRIVATE_ADSP_HEAP |
-                   GRALLOC_USAGE_PRIVATE_MM_HEAP;
+#ifdef USE_ION
+            int usage = GRALLOC_USAGE_PRIVATE_UI_CONTIG_HEAP;
+#else
+            int usage = GRALLOC_USAGE_PRIVATE_ADSP_HEAP |
+                            GRALLOC_USAGE_PRIVATE_MM_HEAP;
+#endif
 
        if (0 == alloc_buffer(&tmpHnd, tmp_w, tmp_h, fbHandle->format, usage)){
             copybit_image_t tmp_dst;
