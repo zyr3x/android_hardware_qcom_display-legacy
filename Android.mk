@@ -7,7 +7,7 @@ display-hals := libgralloc libgenlock libcopybit
 display-hals += libhwcomposer liboverlay libqdutils
 #display-hals += libtilerenderer
 
-ifneq ($(TARGET_PROVIDES_LIBLIGHTS),true)
+ifneq ($(TARGET_PROVIDES_LIBLIGHT),true)
 display-hals += liblight
 endif
 
