@@ -4,6 +4,7 @@ common_includes += hardware/qcom/display-legacy/libgenlock
 common_includes += hardware/qcom/display-legacy/liboverlay
 common_includes += hardware/qcom/display-legacy/libcopybit
 common_includes += hardware/qcom/display-legacy/libqdutils
+common_includes += hardware/qcom/display-legacy/libhwcomposer
 
 ifeq ($(TARGET_USES_POST_PROCESSING),true)
     common_flags     += -DUSES_POST_PROCESSING
