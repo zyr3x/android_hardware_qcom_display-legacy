@@ -68,8 +68,8 @@ struct private_module_t HAL_MODULE_INFO_SYM = {
 base: {
     common: {
         tag: HARDWARE_MODULE_TAG,
-             version_major: 1,
-             version_minor: 0,
+             module_api_version: 1,
+             hal_api_version: 0,
              id: GRALLOC_HARDWARE_MODULE_ID,
              name: "Graphics Memory Allocator Module",
              author: "The Android Open Source Project",
@@ -81,14 +81,14 @@ base: {
     lock: gralloc_lock,
     unlock: gralloc_unlock,
     perform: gralloc_perform,
-    },
-    framebuffer: 0,
-    fbFormat: 0,
-    flags: 0,
-    numBuffers: 0,
-    bufferMask: 0,
-    lock: PTHREAD_MUTEX_INITIALIZER,
-    currentBuffer: 0,
+      },
+framebuffer: 0,
+fbFormat: 0,
+flags: 0,
+numBuffers: 0,
+bufferMask: 0,
+lock: PTHREAD_MUTEX_INITIALIZER,
+currentBuffer: 0,
 };
 
 // Open Gralloc device
