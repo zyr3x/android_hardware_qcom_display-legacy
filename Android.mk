@@ -1,8 +1,6 @@
 ifeq ($(TARGET_QCOM_DISPLAY_VARIANT),legacy)
-
 display-hals := libgralloc libgenlock libcopybit
-display-hals += libhwcomposer liboverlay libqdutils libtilerenderer
-
+display-hals += libhwcomposer liboverlay libqdutils
 ifneq ($(TARGET_PROVIDES_LIBLIGHT),true)
 display-hals += liblight
 endif
