@@ -35,6 +35,15 @@ bool VideoOverlay::sIsModeOn = false;
 //Cache stats, figure out the state, config overlay
 bool VideoOverlay::prepare(hwc_context_t *ctx, hwc_display_contents_1_t *list) {
     sIsModeOn = false;
+     //PMEM
+    for (unsigned int i = 0; i < list->numHwLayers; i++) {
+        private_handle_t *hnd = (private_handle_t *)list->hwLayers[i].handle;
+          if (UNLIKELY(isPmemAdsp(hnd))) {
+          ALOGD_IF(VIDEO_DEBUG,"%s: PMEM Video Overlay",__FUNCTION__);
+          return false;
+          }
+      }
+
     if((!ctx->mMDP.hasOverlay) ||
                             (qdutils::MDPVersion::getInstance().getMDPVersion()
                              <= qdutils::MDP_V4_0)) {

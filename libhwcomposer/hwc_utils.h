@@ -121,6 +121,10 @@ static inline bool isExtBlock(const private_handle_t* hnd) {
 static inline bool isExtCC(const private_handle_t* hnd) {
     return (hnd && (hnd->flags & private_handle_t::PRIV_FLAGS_EXTERNAL_CC));
 }
+//Return true if buffer is Pmem Video Buffer
+static inline bool isPmemAdsp(const private_handle_t* hnd) {
+    return (hnd && (hnd->flags & private_handle_t::PRIV_FLAGS_USES_PMEM_ADSP));
+}
 
 // Initialize uevent thread
 void init_uevent_thread(hwc_context_t* ctx);
