@@ -144,7 +144,7 @@ inline bool OvMem::open(uint32_t numbufs,
     //we can try MM_HEAP once if it's not secure playback
     if (err != 0 && !isSecure) {
         allocFlags |= GRALLOC_USAGE_PRIVATE_ADSP_HEAP;
-        err = mAlloc->allocate(data, allocFlags, 0);
+        err = mAlloc->allocate(data, allocFlags);
         if (err != 0) {
             ALOGE(" could not allocate from fallback heap");
             return false;
