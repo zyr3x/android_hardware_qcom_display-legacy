@@ -10,3 +10,4 @@ endif
 include $(call all-named-subdir-makefiles,$(display-hals))
 
 endif
+
