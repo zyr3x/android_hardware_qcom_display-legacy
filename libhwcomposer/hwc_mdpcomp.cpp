@@ -217,12 +217,6 @@ int MDPComp::prepare(hwc_context_t *ctx, hwc_layer_1_t *layer,
         int dst_w = dst.right - dst.left;
         int dst_h = dst.bottom - dst.top;
 
-        //REDUNDANT ??
-        if(hnd != NULL &&
-               (hnd->flags & private_handle_t::PRIV_FLAGS_NONCONTIGUOUS_MEM )) {
-            ALOGE("%s: failed due to non-pmem memory",__FUNCTION__);
-            return -1;
-        }
 
         if(dst.left < 0 || dst.top < 0 ||
                dst.right > hw_w || dst.bottom > hw_h) {
@@ -371,6 +365,14 @@ bool MDPComp::is_doable(hwc_composer_device_1_t *dev, hwc_display_contents_1_t *
         }
     }
 
+    //PMEM
+    for (unsigned int i = 0; i < list->numHwLayers; i++) {
+        private_handle_t *hnd = (private_handle_t *)list->hwLayers[i].handle;
+          if (UNLIKELY(isPmemAdsp(hnd))) {
+          ALOGD_IF(isDebug(),"%s: PMEM",__FUNCTION__);
+          return false;
+          }
+        }
     return true;
 }
 
@@ -396,7 +398,7 @@ void MDPComp::get_layer_info(hwc_layer_1_t* layer, int& flags) {
     if(layer->flags & HWC_SKIP_LAYER) {
         flags |= MDPCOMP_LAYER_SKIP;
     } else if(hnd != NULL &&
-        (hnd->flags & private_handle_t::PRIV_FLAGS_NONCONTIGUOUS_MEM )) {
+        (hnd->flags & private_handle_t::PRIV_FLAGS_USES_PMEM_ADSP)) {
         flags |= MDPCOMP_LAYER_UNSUPPORTED_MEM;
     }
 

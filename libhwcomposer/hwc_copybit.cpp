@@ -131,6 +131,14 @@ bool CopyBit::prepare(hwc_context_t *ctx, hwc_display_contents_1_t *list) {
     int compositionType =
         qdutils::QCCompositionType::getInstance().getCompositionType();
 
+     for (size_t i=0; i<list->numHwLayers; i++ ) {
+        private_handle_t *hnd = (private_handle_t *)list->hwLayers[i].handle;
+          if (UNLIKELY(isPmemAdsp(hnd))) {
+          ALOGD_IF (DEBUG_COPYBIT,"%s: PMEM",__FUNCTION__);
+          return false;
+          }
+      }
+
     if ((compositionType == qdutils::COMPOSITION_TYPE_GPU) ||
         (compositionType == qdutils::COMPOSITION_TYPE_CPU))   {
         //GPU/CPU composition, don't change layer composition type
@@ -158,8 +166,8 @@ bool CopyBit::prepare(hwc_context_t *ctx, hwc_display_contents_1_t *list) {
           // mark the video layer to gpu when all layer is
           // going to gpu in case of dynamic composition.
           if (useCopybitForYUV && useCopybitForRGB) {
-              list->hwLayers[i].compositionType = HWC_USE_COPYBIT;
-              sCopyBitDraw = true;
+              list->hwLayers[i].compositionType = HWC_USE_GPU;
+              sCopyBitDraw = false;
           }
        } else if (hnd->bufferType == BUFFER_TYPE_UI) {
           //RGB layer, check, if copybit can be used

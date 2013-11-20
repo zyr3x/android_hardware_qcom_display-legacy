@@ -41,6 +41,11 @@ bool ExtOnly::prepare(hwc_context_t *ctx, hwc_display_contents_1_t *list) {
     if(sExtIndex == -1) {
         return false;
     }
+        private_handle_t *hnd = (private_handle_t *)list->hwLayers[sExtIndex].handle;
+          if (UNLIKELY(isPmemAdsp(hnd))) {
+          ALOGE("%s: PMEM ExtOnly",__FUNCTION__);
+          return false;
+        }
     chooseState(ctx);
     //if the state chosen above is CLOSED, skip this block.
     if(sState != ovutils::OV_CLOSED) {

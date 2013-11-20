@@ -117,9 +117,9 @@ inline bool OvMem::open(uint32_t numbufs,
         uint32_t bufSz, bool isSecure)
 {
     alloc_data data;
-    int allocFlags = GRALLOC_USAGE_PRIVATE_IOMMU_HEAP;
+    int allocFlags = GRALLOC_USAGE_PRIVATE_SMI_HEAP;
     if(isSecure) {
-        allocFlags |= GRALLOC_USAGE_PRIVATE_MM_HEAP;
+        allocFlags |= GRALLOC_USAGE_PRIVATE_SMI_HEAP;
         allocFlags |= GRALLOC_USAGE_PRIVATE_CP_BUFFER;
 #ifndef USE_ION
         allocFlags |= GRALLOC_USAGE_PRIVATE_DO_NOT_MAP;
@@ -143,8 +143,8 @@ inline bool OvMem::open(uint32_t numbufs,
     //see if we can fallback to other heap
     //we can try MM_HEAP once if it's not secure playback
     if (err != 0 && !isSecure) {
-        allocFlags |= GRALLOC_USAGE_PRIVATE_MM_HEAP;
-        err = mAlloc->allocate(data, allocFlags);
+        allocFlags |= GRALLOC_USAGE_PRIVATE_ADSP_HEAP;
+        err = mAlloc->allocate(data, allocFlags, 0);
         if (err != 0) {
             ALOGE(" could not allocate from fallback heap");
             return false;
