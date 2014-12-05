@@ -90,6 +90,9 @@ enum {
      * but still need to be protected from screen captures
      */
     GRALLOC_USAGE_PRIVATE_CP_BUFFER       =       0x00080000,
+
+    /* This flag is used for SECURE display usecase */
+    GRALLOC_USAGE_PRIVATE_SECURE_DISPLAY  =       0x00800000,
 };
 
 enum {

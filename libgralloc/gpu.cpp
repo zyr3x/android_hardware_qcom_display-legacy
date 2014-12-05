@@ -154,6 +154,11 @@ int gpu_context_t::gralloc_alloc_buffer(size_t size, int usage,
     }
 
     if (err == 0) {
+
+        if(usage & GRALLOC_USAGE_PRIVATE_SECURE_DISPLAY) {
+            flags |= private_handle_t::PRIV_FLAGS_SECURE_DISPLAY;
+        }
+
         flags |= data.allocType;
         private_handle_t* hnd = new private_handle_t(data.fd, size, flags,
                                                      bufferType, format, width,
